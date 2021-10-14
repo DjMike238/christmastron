@@ -31,26 +31,22 @@ func newBot(chatID int64) echotron.Bot {
 
 func (b *bot) handleMessage(update *echotron.Update) {
 	var msg = strings.ToLower(update.Message.Text)
-	var until = time.Until(christmas)
-
-	d := until.Hours() / 24
-	h := getHours(until.Hours())
-	m := getSixties(until.Minutes())
-	s := getSixties(until.Seconds())
 
 	if update.Message.From.LanguageCode == "it" {
 		if strings.Contains(msg, "quanto manca a natale") {
+			until := GetUntil(christmas.In(loc))
+
 			b.SendMessage(
 				fmt.Sprintf(
 					"%.0f giorn%s, %.0f or%s, %.0f minut%s e %.0f second%s.",
-					d,
-					IfThenElse(d > 1, "i", "o"),
-					h,
-					IfThenElse(h > 1, "e", "a"),
-					m,
-					IfThenElse(m > 1, "i", "o"),
-					s,
-					IfThenElse(s > 1, "i", "o"),
+					until.Days,
+					IfThenElse(until.Days > 1, "i", "o"),
+					until.Hours,
+					IfThenElse(until.Hours > 1, "e", "a"),
+					until.Minutes,
+					IfThenElse(until.Minutes > 1, "i", "o"),
+					until.Seconds,
+					IfThenElse(until.Seconds > 1, "i", "o"),
 				),
 				b.chatID,
 				&echotron.MessageOptions{
@@ -60,17 +56,19 @@ func (b *bot) handleMessage(update *echotron.Update) {
 		}
 	} else {
 		if strings.Contains(msg, "how long until christmas") {
+			until := GetUntil(christmas)
+
 			b.SendMessage(
 				fmt.Sprintf(
 					"%.0f day%s, %.0f hour%s, %.0f minute%s and %.0f second%s.",
-					d,
-					IfThenElse(d > 1, "s", ""),
-					h,
-					IfThenElse(h > 1, "s", ""),
-					m,
-					IfThenElse(m > 1, "s", ""),
-					s,
-					IfThenElse(s > 1, "s", ""),
+					until.Days,
+					IfThenElse(until.Days > 1, "s", ""),
+					until.Hours,
+					IfThenElse(until.Hours > 1, "s", ""),
+					until.Minutes,
+					IfThenElse(until.Minutes > 1, "s", ""),
+					until.Seconds,
+					IfThenElse(until.Seconds > 1, "s", ""),
 				),
 				b.chatID,
 				&echotron.MessageOptions{

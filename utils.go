@@ -4,6 +4,13 @@ import (
 	"time"
 )
 
+type Until struct {
+	Days    float64
+	Hours   float64
+	Minutes float64
+	Seconds float64
+}
+
 func getYear() int {
 	var date = time.Date(time.Now().Year(), time.December, 25, 0, 0, 0, 0, time.UTC)
 
@@ -36,4 +43,15 @@ func IfThenElse(condition bool, a, b interface{}) interface{} {
 	}
 
 	return b
+}
+
+func GetUntil(t time.Time) Until {
+	until := time.Until(t)
+
+	return Until{
+		Days:    until.Hours() / 24,
+		Hours:   getHours(until.Hours()),
+		Minutes: getSixties(until.Minutes()),
+		Seconds: getSixties(until.Seconds()),
+	}
 }
