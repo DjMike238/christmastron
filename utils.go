@@ -5,10 +5,10 @@ import (
 )
 
 type Until struct {
-	Days    float64
-	Hours   float64
-	Minutes float64
-	Seconds float64
+	Days    int
+	Hours   int
+	Minutes int
+	Seconds int
 }
 
 func getYear() int {
@@ -21,7 +21,7 @@ func getYear() int {
 	return time.Now().Year() + 1
 }
 
-func getHours(h float64) float64 {
+func getHours(h int) int {
 	for h > 24 {
 		h -= 24
 	}
@@ -29,7 +29,7 @@ func getHours(h float64) float64 {
 	return h
 }
 
-func getSixties(t float64) float64 {
+func getSixties(t int) int {
 	for t > 60 {
 		t -= 60
 	}
@@ -49,9 +49,9 @@ func GetUntil(t time.Time) Until {
 	until := time.Until(t)
 
 	return Until{
-		Days:    until.Hours() / 24,
-		Hours:   getHours(until.Hours()),
-		Minutes: getSixties(until.Minutes()),
-		Seconds: getSixties(until.Seconds()),
+		Days:    int(until.Hours() / 24),
+		Hours:   getHours(int(until.Hours())),
+		Minutes: getSixties(int(until.Minutes())),
+		Seconds: getSixties(int(until.Seconds())),
 	}
 }

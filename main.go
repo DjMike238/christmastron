@@ -39,7 +39,7 @@ func (b *bot) handleMessage(update *echotron.Update) {
 
 			b.SendMessage(
 				fmt.Sprintf(
-					"%.0f giorn%s, %.0f or%s, %.0f minut%s e %.0f second%s.",
+					"%d giorn%s, %d or%s, %d minut%s e %d second%s.",
 					until.Days,
 					IfThenElse(until.Days > 1, "i", "o"),
 					until.Hours,
@@ -61,7 +61,7 @@ func (b *bot) handleMessage(update *echotron.Update) {
 
 			b.SendMessage(
 				fmt.Sprintf(
-					"%.0f day%s, %.0f hour%s, %.0f minute%s and %.0f second%s.",
+					"%d day%s, %d hour%s, %d minute%s and %d second%s.",
 					until.Days,
 					IfThenElse(until.Days > 1, "s", ""),
 					until.Hours,
