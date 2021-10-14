@@ -29,3 +29,11 @@ func getSixties(t float64) float64 {
 
 	return t
 }
+
+func IfThenElse(condition bool, a, b interface{}) interface{} {
+	if condition {
+		return a
+	}
+
+	return b
+}
