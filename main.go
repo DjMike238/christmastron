@@ -34,6 +34,7 @@ func (b *bot) handleMessage(update *echotron.Update) {
 
 	if update.Message.From.LanguageCode == "it" {
 		if strings.Contains(msg, "quanto manca a natale") {
+			loc, _ := time.LoadLocation("Europe/Rome")
 			until := GetUntil(christmas.In(loc))
 
 			b.SendMessage(
