@@ -26,12 +26,16 @@ func getHours(h int) int {
 		h -= 24
 	}
 
-	return h
+	return h - 1
 }
 
 func getSixties(t int) int {
 	for t > 60 {
 		t -= 60
+	}
+
+	if t == 60 {
+		return 0
 	}
 
 	return t
