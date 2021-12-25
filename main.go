@@ -15,12 +15,8 @@ type bot struct {
 	echotron.API
 }
 
-var (
-	christmas = time.Date(getYear(), time.December, 25, 0, 0, 0, 0, time.UTC)
-
-	//go:embed token
-	token string
-)
+//go:embed token
+var token string
 
 func newBot(chatID int64) echotron.Bot {
 	return &bot{
@@ -30,7 +26,10 @@ func newBot(chatID int64) echotron.Bot {
 }
 
 func (b *bot) handleMessage(update *echotron.Update) {
-	var msg = strings.ToLower(update.Message.Text)
+	var (
+		christmas = time.Date(getYear(), time.December, 25, 0, 0, 0, 0, time.UTC)
+		msg       = strings.ToLower(update.Message.Text)
+	)
 
 	if update.Message.From.LanguageCode == "it" {
 		if strings.Contains(msg, "quanto manca a natale") {
