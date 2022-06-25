@@ -41,11 +41,10 @@ func getSixties(t int) int {
 	return t
 }
 
-func IfThenElse(condition bool, a, b interface{}) interface{} {
-	if condition {
+func IfThenElse[T any](cond bool, a, b T) T {
+	if cond {
 		return a
 	}
-
 	return b
 }
 
